@@ -1,0 +1,198 @@
+:root {
+    --pastel-pink: #FFD1DC; /* Rosa pastel */
+    --strong-red: #E74C3C; /* Rojo fuerte */
+    --light-grey: #ECF0F1;
+    --dark-grey: #34495E;
+    --text-color: #333;
+    --approved-color: #B2EBF2; /* Un azul claro para ramos aprobados */
+    --blocked-color: #FADBD8; /* Un rosa aún más pálido para ramos bloqueados */
+    --hover-color: #FFC0CB; /* Un rosa un poco más oscuro al pasar el ratón */
+    --border-radius: 8px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-grey);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--strong-red);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+}
+
+#motivational-message {
+    font-style: italic;
+    margin-top: 0.5rem;
+    font-size: 1.1em;
+}
+
+#curriculum-grid {
+    display: flex;
+    overflow-x: auto; /* Permite scroll horizontal */
+    padding: 1rem;
+    gap: 1.5rem; /* Espacio entre columnas */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+}
+
+.semester-column {
+    flex: 0 0 280px; /* Ancho fijo para las columnas en pantallas grandes */
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    text-align: center;
+    scroll-snap-align: start;
+    min-width: 280px; /* Asegura que no se haga más pequeña que esto */
+}
+
+.semester-column h2 {
+    color: var(--strong-red);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.8em;
+    border-bottom: 2px solid var(--pastel-pink);
+    padding-bottom: 10px;
+}
+
+.course-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.course-item {
+    background-color: var(--pastel-pink);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-weight: bold;
+    color: var(--dark-grey);
+}
+
+.course-item:hover:not(.approved):not(.blocked) {
+    background-color: var(--hover-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.course-item.approved {
+    background-color: var(--approved-color);
+    text-decoration: line-through;
+    opacity: 0.8;
+    cursor: default;
+    color: var(--text-color);
+}
+
+.course-item.blocked {
+    background-color: var(--blocked-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+    border: 2px dashed var(--strong-red);
+    color: var(--dark-grey);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+    color: var(--dark-grey);
+    font-size: 1.1em;
+}
+
+.close-button {
+    color: var(--strong-red);
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--dark-grey);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    #curriculum-grid {
+        flex-direction: row; /* Mantener horizontal para scroll */
+        padding: 1rem;
+    }
+
+    .semester-column {
+        flex: 0 0 90%; /* Ocupa más ancho en móviles */
+        margin: 0 auto; /* Centrar la columna si hay espacio */
+        min-width: unset; /* Eliminar min-width para mayor flexibilidad */
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .semester-column {
+        padding: 1rem;
+    }
+
+    .semester-column h2 {
+        font-size: 1.5em;
+    }
+
+    .course-item {
+        padding: 12px;
+        font-size: 0.9em;
+    }
+}
